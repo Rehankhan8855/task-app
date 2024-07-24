@@ -8,13 +8,15 @@ function loadData() {
     if (data) {
         const tasks = JSON.parse(data)
         tasks.forEach(task => {
-            taskList.innerHTML += `<li><input type="checkbox" name="checkbox" class="checkbox" onclick="complteTask(this)"><label for="checkbox">${task}</label><button onclick="deleteTask(this)">Delete</button></li>`
+            taskList.innerHTML += `<li><input type="checkbox" name="checkbox"
+                    class="checkbox" onclick="completedTask(this)"><label for="checkbox">${task}</label> <button onclick="deleteTask(this)" class="delete-button"><img src="assets/icon3.png" height="30px"></button></li>`
         })
     }
     if (completedTask) {
         const completedTasks = JSON.parse(completedTask)
         completedTasks.forEach(task => {
-            taskList.innerHTML += `<li style="text-decoration:line-through;"><input type="checkbox" name="checkbox" class="checkbox" checked onclick="completeTask(this)"><label for="checkbox">${task}</label><button onclick="deleteTask(this)">Delete</button></li>`
+            taskList.innerHTML += `<li><input type="checkbox" name="checkbox"
+                    class="checkbox" onclick="completedTask(this)"><label for="checkbox">${task}</label> <button onclick="deleteTask(this)" class="delete-button"><img src="assets/icon3.png" height="30px"></button></li>`
         })
     }
 }
@@ -28,7 +30,7 @@ submitButton.addEventListener('click', function (e) {
     sessionStorage.setItem('tasks', JSON.stringify([...JSON.parse(sessionStorage.getItem('tasks') || '[]'), task]))
 
     taskList.innerHTML += `<li><input type="checkbox" name="checkbox"
-        class="checkbox" onclick="completedTask(this)"><label for="checkbox">${task}</label> <button onclick="deleteTask(this)">Delete</buuton></li>`
+                    class="checkbox" onclick="completedTask(this)"><label for="checkbox">${task}</label> <button onclick="deleteTask(this)" class="delete-button"><img src="assets/icon3.png" height="30px"></button></li>`
     taskInput.value = ''
     
 
@@ -46,10 +48,10 @@ function completedTask(e) {
         e.parentElement.style.textDecoration = 'line-through'
         sessionStorage.setItem('completedTasks', JSON.stringify([...JSON.parse(sessionStorage.getItem('completedTasks') || '[]'), e.parentElement.children[1].textContent]))
     } else {
-        e.parentElement.style.textDecoration = 'non';
+        e.parentElement.style.textDecoration = 'none';
         const newCompletedTasks = completedTasks.filter(task => task !== e.parentElement.children[1].textContent)
         sessionStorage.setItem('completedTasks', JSON.stringify(newCompletedTasks))
-        sessionStorage.setItem('task', JSON.stringify([...JSON.parse(sessionStorage.getItem('task') || '[]'), e.parentElement.children[1].textContent]))
+        sessionStorage.setItem('tasks', JSON.stringify([...JSON.parse(sessionStorage.getItem('tasks') || '[]'), e.parentElement.children[1].textContent]))
 
     }
 
