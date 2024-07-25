@@ -19,7 +19,7 @@ function loadData() {
     }
 }
 
-loadData()
+loadData();
 
 submitButton.addEventListener('click', function (e) {
     e.preventDefault()
@@ -30,7 +30,7 @@ submitButton.addEventListener('click', function (e) {
     taskList.innerHTML += `<li><input type="checkbox" name="checkbox"
         class="checkbox" onclick="completedTask(this)"><label for="checkbox">${task}</label> <button onclick="deleteTask(this)">Delete</buuton></li>`
     taskInput.value = ''
-    
+
 
 })
 
@@ -58,9 +58,18 @@ function completedTask(e) {
 function deleteTask(e) {
     e.parentElement.remove()
     const tasks = JSON.parse(sessionStorage.getItem('tasks'))
-    const newTasks = tasks.filter(task=>task !== e.parentElement.children[1].textContent)
+    const newTasks = tasks.filter(task => task !== e.parentElement.children[1].textContent)
     sessionStorage.setItem('tasks', JSON.stringify(newTasks))
     const completedTasks = JSON.parse(sessionStorage.getItem('completedTasks'))
     const newCompletedTask = completedTasks.filter(task => task !== e.parentElement.children[1].textContent)
     sessionStorage.setItem('completedTasks', JSON.stringify(newCompletedTask))
 }
+
+
+const enableButton = () => {
+    if (taskInput.value !== "") {
+        submitButton.disabled = false;
+    } else {
+        submitButton.disabled = true;
+    }
+} 
