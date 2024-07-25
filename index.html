@@ -16,8 +16,8 @@
         <div class="box">
             <h1 id="add">Add Tasks</h1>
             <form action="">
-                <input type="text" id="task-input" placeholder="Add a new task">
-                <input type="submit" id="task-submit" value="+">
+                <input type="text" id="task-input" oninput="enableButton()" placeholder="Add a new task">
+                <input type="submit" id="task-submit" disabled value="+">
             </form>
             <ul id="tasks-list">
 
